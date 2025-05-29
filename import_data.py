@@ -1,32 +1,21 @@
 import os
 import io
+import json
 import pandas as pd
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 
-from dotenv import load_dotenv
-load_dotenv()
-
-CLIENT_SECRET_FILE = os.getenv('GOOGLE_CLIENT_SECRET_JSON_PATH')
+# 環境変数からサービスアカウントJSONを文字列として読み込み（一行JSONでもOK）
+SERVICE_ACCOUNT_JSON = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
 FILE_ID = os.getenv('GOOGLE_DRIVE_FILE_ID')
 
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
 def authenticate_google_drive():
-    creds = None
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
+    # JSON文字列を辞書に変換
+    service_account_info = json.loads(SERVICE_ACCOUNT_JSON)
+    creds = service_account.Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
     return creds
 
 def read_uploaded_csv_from_drive(file_id):
@@ -47,4 +36,3 @@ def read_uploaded_csv_from_drive(file_id):
     except Exception as e:
         print(f"読み込み中にエラーが発生しました: {e}")
         return None
-
