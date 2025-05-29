@@ -5,14 +5,12 @@ import pandas as pd
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
+from dotenv import load_dotenv 
 
-# 環境変数からサービスアカウントJSONを文字列として読み込み（一行JSONでもOK）
-SERVICE_ACCOUNT_JSON = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
-FILE_ID = os.getenv('GOOGLE_DRIVE_FILE_ID')
-
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
 def authenticate_google_drive():
+    SERVICE_ACCOUNT_JSON = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
+    SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
     # JSON文字列を辞書に変換
     service_account_info = json.loads(SERVICE_ACCOUNT_JSON)
     creds = service_account.Credentials.from_service_account_info(service_account_info, scopes=SCOPES)

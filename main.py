@@ -10,11 +10,13 @@ from dash import dash_table
 import functions
 import import_data
 import os
-
-
+from dotenv import load_dotenv  # ← 追加
 
 # データの読み込み
-FILE_ID = '1EEgfPkFD4noptIGjPwrhJiuBtebwxb0n'
+load_dotenv()
+SERVICE_ACCOUNT_JSON = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
+FILE_ID = os.getenv('GOOGLE_DRIVE_FILE_ID')
+
 try:
     df = import_data.read_uploaded_csv_from_drive(FILE_ID)
     #df = pd.read_csv('csv_files/rapsodo_kunimoto.csv')
