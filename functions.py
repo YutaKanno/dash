@@ -32,18 +32,33 @@ def mov_plot(data, sp_or_trj, color_map):
     x_col = f'HB ({sp_or_trj})'
     y_col = f'VB ({sp_or_trj})'
 
-    # 元の散布図
+    # 元の散布図（透明度0.5）
     scatter_fig = px.scatter(
         data, x=x_col, y=y_col,
         color='球種',
         color_discrete_map=color_map,
         hover_data=[x_col, y_col, '日付'],
         title=f'{sp_or_trj} based',
-        labels={x_col: '', y_col: ''}
+        labels={x_col: '', y_col: ''},
+        opacity=0.7
     )
 
-
-        
+    # 球種ごとの平均値をプロット（サイズ2倍、透明度1）
+    mean_points = data.groupby('球種')[[x_col, y_col]].mean().reset_index()
+    for _, row in mean_points.iterrows():
+        scatter_fig.add_trace(go.Scatter(
+            x=[row[x_col]],
+            y=[row[y_col]],
+            mode='markers',
+            marker=dict(
+                size=20,  # 通常のpx.scatterより大きめ
+                color=color_map.get(row['球種'], 'gray'),
+                opacity=1,
+                line=dict(width=1, color='black')
+            ),
+            name=f"{row['球種']} 平均",
+            showlegend=False  # 凡例は1つにしたければFalse
+        ))
 
     # x=0の縦線
     scatter_fig.add_shape(
@@ -52,7 +67,6 @@ def mov_plot(data, sp_or_trj, color_map):
         x1=0, y1=data[y_col].max()+5,
         line=dict(color="black", width=1)
     )
-
     # y=0の横線
     scatter_fig.add_shape(
         type="line",
@@ -60,7 +74,6 @@ def mov_plot(data, sp_or_trj, color_map):
         x1=data[x_col].max()+5, y1=0,
         line=dict(color="black", width=1)
     )
-
     scatter_fig.update_xaxes(dtick=10)
     scatter_fig.update_yaxes(dtick=10)
 
