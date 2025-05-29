@@ -28,6 +28,7 @@ except FileNotFoundError:
 
 # Dashアプリケーションの初期化
 app = dash.Dash(__name__, assets_folder='assets')
+server = app.server
 
 # 背景を透過して画像を正方形に切り抜きBase64で返す関数
 def process_image_to_square_base64_with_transparency(image_bytes):
