@@ -1,0 +1,272 @@
+/* assets/style.css */
+
+/* 全体的なフォントと背景色の設定 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f7f6; /* 優しいグレーの背景 */
+    color: #333;
+}
+
+/* ヘッダーのスタイル */
+h1, h2 {
+    color: #2c3e50; /* 濃い目の青 */
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* 各セクションのコンテナ */
+.dash-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+/* ★変更点: 名前選択と画像を横並びにする親コンテナ */
+.name-selection-and-image-row {
+    display: flex; /* Flexboxを有効にする */
+    align-items: center; /* 垂直方向中央揃え */
+    gap: 20px; /* アイテム間のスペース */
+    margin-bottom: 20px; /* 下部に余白 */
+    flex-wrap: wrap; /* 小さな画面で折り返す */
+    justify-content: space-between; /* アイテムを両端に寄せる */
+}
+
+
+/* ドロップダウンコンテナ */
+.dash-dropdown-container { /* dash-dropdown-containerのみ */
+    flex-grow: 1; /* 残りのスペースを埋める */
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    height: 200px;
+    /* margin-bottom: 20px; /* 不要 */
+}
+
+.dash-dropdown-container2 { /* dash-dropdown-containerのみ */
+    flex-grow: 1; /* 残りのスペースを埋める */
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    /* margin-bottom: 20px; /* 不要 */
+}
+
+/* ★変更点: 日付ピッカーコンテナのスタイル */
+.dash-date-picker-container { /* 新しく独立したDiv */
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 30px; /* グラフとの間に余白 */
+    box-sizing: border-box;
+}
+
+
+/* 画像表示コンテナ */
+.image-display-container {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    display: flex; /* 画像とH3を縦に中央揃え */
+    flex-direction: column;
+    align-items: center; /* 水平方向中央揃え */
+    justify-content: center; /* 垂直方向中央揃え */
+    text-align: center;
+}
+.image-display-container img {
+    width: 100%;               /* 親要素の幅にフィット */
+    height: auto;              /* アスペクト比を保ったまま高さを自動調整 */
+    display: block;
+    margin: 10px auto;
+    object-fit: contain;       /* はみ出しを防ぐ */
+}
+
+
+/* 半分の横幅を設定するクラス */
+.half-width {
+    flex-basis: calc(50% - 10px); /* 50% - 半分のgap */
+    max-width: calc(50% - 10px); /* 最大幅も設定 */
+    flex-shrink: 0; /* 小さくならないようにする */
+}
+
+
+/* ラベルのスタイル */
+label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Plotlyグラフのスタイル */
+.dash-graph {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+/* Dashコンポーネントのデフォルトスタイルを調整（必要に応じて） */
+.Select-control,
+.Select-menu-outer,
+.DateInput_input {
+    border-radius: 5px !important;
+    border-color: #ccc !important;
+}
+
+.DateRangePickerInput_arrow_svg {
+    fill: #555 !important;
+}
+
+.DateRangePickerInput {
+    border: none !important;
+}
+
+.DateInput {
+    background-color: transparent !important;
+}
+
+.DateInput_input {
+    font-size: 16px !important;
+}
+
+.DayPicker_weekdays {
+    font-size: 14px !important;
+}
+
+/* 画像のスタイル (html.Img に直接スタイルを当てているが、ここも補助的) */
+.image-display-container img {
+    /* width, height, object-fit はhtml.Imgに直接設定 */
+    display: block;
+    margin: 10px auto; /* 上下のマージンと中央寄せ */
+}
+
+.page-break {
+  page-break-before: always;
+}
+
+
+/* タブ全体の親ラッパー */
+.tab-wrapper {
+    display: flex;
+    justify-content: center;   /* 横方向中央揃え */
+    align-items: center;       /* 縦方向中央揃え（必要に応じて） */
+    width: 100%;
+    text-align: center;        /* 中央揃え */
+}
+
+/* タブ本体 */
+.tab-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 30px;
+    width: 80%;
+    display: block; /* 内部を中央に寄せるのではなく、ブロックにする */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* 個別のタブ */
+.custom-tab {
+    padding: 12px 24px;
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #f4f7f6;
+    color: #2c3e50;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* タブがアクティブなとき */
+.custom-tab--selected {
+    background-color: #ffffff;
+    border-bottom: none;
+    color: #000;
+}
+
+/* タブホバー時 */
+.custom-tab:hover {
+    background-color: #e9ecef;
+}
+
+/* 散布図を横並び・縦並びに切り替えるラッパー */
+.scatter-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+/* 個別のグラフ用スタイル（初期は横並びを意識） */
+.scatter-plot-box {
+    width: 49%;
+}
+
+/* 画面幅が590px未満のとき縦に並べる */
+@media screen and (max-width: 900px) {
+    .scatter-wrapper {
+        flex-direction: column;
+    }
+
+    .scatter-plot-box {
+        width: 100%;
+    }
+}
+
+
+/* リリース位置のグラフを並べるためのラッパー */
+.release-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+/* 各グラフボックス（初期状態では590px固定幅） */
+.release-plot-box {
+    width: 49%;
+}
+
+/* 画面幅が590px未満になったときに縦並びに変更 */
+@media screen and (max-width: 900px) {
+    .release-wrapper {
+        flex-direction: column;
+    }
+
+    .release-plot-box {
+        width: 100%;
+    }
+}
+
+
+
+@media print {
+  .header-container {
+    display: none !important;
+  }
+  .tab-container {
+    display: none !important;
+  }
+}
+
+
