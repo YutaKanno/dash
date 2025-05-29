@@ -11,6 +11,28 @@ import functions
 import import_data
 import os
 from dotenv import load_dotenv  # ← 追加
+from flask import request, Response
+
+USERNAME = os.getenv("DASH_USERNAME", "user")
+PASSWORD = os.getenv("DASH_PASSWORD", "pass")
+
+@server.before_request
+def basic_authentication():
+    auth = request.headers.get("Authorization")
+    if auth:
+        try:
+            encoded = auth.split(" ")[1]
+            decoded = base64.b64decode(encoded).decode("utf-8")
+            username, password = decoded.split(":")
+            if username == USERNAME and password == PASSWORD:
+                return  # 認証成功
+        except:
+            pass
+    return Response(
+        "認証が必要です", 401,
+        {"WWW-Authenticate": 'Basic realm="Login Required"'}
+    )
+
 
 # データの読み込み
 load_dotenv()
