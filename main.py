@@ -27,7 +27,7 @@ except FileNotFoundError:
     exit()
 
 # Dashアプリケーションの初期化
-app = dash.Dash(__name__)
+app = dash.Dash(__name__)#, assets_folder='assets')
 server = app.server
 
 # 背景を透過して画像を正方形に切り抜きBase64で返す関数
@@ -66,15 +66,13 @@ def process_image_to_square_base64_with_transparency(image_bytes):
 
 # Dashアプリのレイアウト
 app.layout = html.Div(className='dash-container', children=[
-    html.Div([
-        html.Link(rel='stylesheet', href='style.css')
-    ]),
+    html.Link(rel='stylesheet', href='style.css'),
     html.Div(
         className='header-container',
         style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center', 'marginTop': '20px', 'marginBottom': '40px'},
         children=[
             html.Img(
-                src='tsukuba_logo.png',  # ← assets フォルダに置いた場合のパス
+                src='/assets/tsukuba_logo.png',  # ← assets フォルダに置いた場合のパス
                 style={'height': '60px', 'marginRight': '20px'}
             ),
             html.H1(
@@ -272,13 +270,13 @@ def update_graphs(selected_name, start_date, end_date, y_axis):
     
 
     # 画像の取得・処理
-    local_image_path = f'{selected_name}.png'
+    local_image_path = f'player_images/{selected_name}.png'
     if os.path.exists(local_image_path):
         with open(local_image_path, "rb") as f:
             image_bytes = f.read()
         image_src = process_image_to_square_base64_with_transparency(image_bytes)
     else:
-        image_src = 'rapsodo_logo.png'  # または '/assets/no_image.png' 等
+        image_src = 'assets/rapsodo_logo.png'  # または '/assets/no_image.png' 等
             
     
     options = [{'label': d, 'value': d} for d in sorted(filtered_df['日付'].unique())]
