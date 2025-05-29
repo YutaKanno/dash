@@ -66,6 +66,9 @@ def process_image_to_square_base64_with_transparency(image_bytes):
 
 # Dashアプリのレイアウト
 app.layout = html.Div(className='dash-container', children=[
+    html.Div([
+        html.Link(rel='stylesheet', href='style.css')
+    ]),
     html.Div(
         className='header-container',
         style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center', 'marginTop': '20px', 'marginBottom': '40px'},
