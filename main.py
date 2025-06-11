@@ -18,8 +18,8 @@ SERVICE_ACCOUNT_JSON = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
 FILE_ID = os.getenv('GOOGLE_DRIVE_FILE_ID')
 
 try:
-    #df = import_data.read_uploaded_csv_from_drive(FILE_ID)
-    df = pd.read_csv('csv_files/rapsodo_kunimoto.csv')
+    df = import_data.read_uploaded_csv_from_drive(FILE_ID)
+    #df = pd.read_csv('csv_files/rapsodo_kunimoto.csv')
     df['日付'] = pd.to_datetime(df['日付'])
     df['Release Extension (m)'] = 0.3048*df['Release Extension (ft)']
 except FileNotFoundError:
