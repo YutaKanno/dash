@@ -11,9 +11,6 @@ import functions
 import import_data
 import os
 from dotenv import load_dotenv  # ← 追加
-from flask import request, Response
-
-
 
 # データの読み込み
 load_dotenv()
@@ -21,8 +18,8 @@ SERVICE_ACCOUNT_JSON = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
 FILE_ID = os.getenv('GOOGLE_DRIVE_FILE_ID')
 
 try:
-    df = import_data.read_uploaded_csv_from_drive(FILE_ID)
-    #df = pd.read_csv('csv_files/rapsodo_kunimoto.csv')
+    #df = import_data.read_uploaded_csv_from_drive(FILE_ID)
+    df = pd.read_csv('csv_files/rapsodo_kunimoto.csv')
     df['日付'] = pd.to_datetime(df['日付'])
     df['Release Extension (m)'] = 0.3048*df['Release Extension (ft)']
 except FileNotFoundError:
@@ -33,25 +30,6 @@ except FileNotFoundError:
 app = dash.Dash(__name__)#, assets_folder='assets')
 server = app.server
 
-USERNAME = os.getenv("DASH_USERNAME", "user")
-PASSWORD = os.getenv("DASH_PASSWORD", "pass")
-
-@server.before_request
-def basic_authentication():
-    auth = request.headers.get("Authorization")
-    if auth:
-        try:
-            encoded = auth.split(" ")[1]
-            decoded = base64.b64decode(encoded).decode("utf-8")
-            username, password = decoded.split(":")
-            if username == USERNAME and password == PASSWORD:
-                return  # 認証成功
-        except:
-            pass
-    return Response(
-        "認証が必要です", 401,
-        {"WWW-Authenticate": 'Basic realm="Login Required"'}
-    )
 # 背景を透過して画像を正方形に切り抜きBase64で返す関数
 def process_image_to_square_base64_with_transparency(image_bytes):
     try:
@@ -87,6 +65,29 @@ def process_image_to_square_base64_with_transparency(image_bytes):
 
 
 # Dashアプリのレイアウト
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Rapsodo DashBoard</title>
+        <link rel="apple-touch-icon" href="assets/rapsodo_logo.png">
+        {%metas%}
+        {%favicon%}
+        {%css%}
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
+
 app.layout = html.Div(className='dash-container', children=[
     html.Link(rel='stylesheet', href='style.css'),
     html.Div(
