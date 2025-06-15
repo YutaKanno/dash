@@ -11,9 +11,12 @@ import functions
 import import_data
 import os
 from dotenv import load_dotenv  # ← 追加
+import os
+from dash import Dash, html
+from flask import request, Response
+from dotenv import load_dotenv
 
 # データの読み込み
-load_dotenv()
 SERVICE_ACCOUNT_JSON = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
 FILE_ID = os.getenv('GOOGLE_DRIVE_FILE_ID')
 
@@ -27,8 +30,36 @@ except FileNotFoundError:
     exit()
 
 # Dashアプリケーションの初期化
-app = dash.Dash(__name__)#, assets_folder='assets')
+
+# 環境変数から読み込む
+USERNAME = os.environ.get("DASH_USERNAME")
+PASSWORD = os.environ.get("DASH_PASSWORD")
+
+# 認証の関数
+def check_auth(username, password):
+    return username == USERNAME and password == PASSWORD
+
+def authenticate():
+    return Response(
+        'ログインが必要です', 401,
+        {'WWW-Authenticate': 'Basic realm="Login Required"'}
+    )
+
+def requires_auth(f):
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
+
+# Dash アプリを初期化
+app = Dash(__name__)
 server = app.server
+
+# すべてのリクエストに認証を適用
+server.before_request(requires_auth(lambda: None))
+
 
 # 背景を透過して画像を正方形に切り抜きBase64で返す関数
 def process_image_to_square_base64_with_transparency(image_bytes):
