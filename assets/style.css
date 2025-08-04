@@ -290,5 +290,15 @@ label {
     flex-basis: 100%;
     max-width: 100%;
   }
+
+@media screen and (max-width: 900px) {
+  .dash-container,
+  .tab-container {
+    width: 100% !important;     /* 画面幅いっぱいにする */
+    padding: 5px !important;   /* 内側に余白は残す */
+    margin: 0 !important;       /* 外側のマージンを無くす */
+  }
 }
+}
+
 
