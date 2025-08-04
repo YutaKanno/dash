@@ -373,7 +373,7 @@ def update_video_embed(selected_name, start_date, end_date, selected_date, pt):
     embed_url = functions.get_youtube_embed_url(video_link)
     
     if embed_url:
-        return_url = html.Iframe(src=embed_url, width="560", height="315", style={'border': 'none'})
+        return_url = html.Iframe(src=embed_url, width="560", height="315", style={'border': 'none', 'max-width': '100%'})
     else:
         return_url =  html.Div("動画が登録されていません")
     
@@ -392,4 +392,5 @@ def update_video_embed(selected_name, start_date, end_date, selected_date, pt):
 # アプリケーション実行
 if __name__ == '__main__':
     app.run(debug=False)
+
 
