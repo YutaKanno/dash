@@ -102,7 +102,7 @@ app.index_string = '''
     <head>
         <meta charset="UTF-8">
         <title>Rapsodo DashBoard</title>
-        <link rel="apple-touch-icon" href="assets/rapsodo_logo.png">
+        <link rel="apple-touch-icon" href="assets/tsukuba_logo.png">
         {%metas%}
         {%favicon%}
         {%css%}
@@ -392,3 +392,4 @@ def update_video_embed(selected_name, start_date, end_date, selected_date, pt):
 # アプリケーション実行
 if __name__ == '__main__':
     app.run(debug=False)
+
