@@ -270,3 +270,25 @@ label {
 }
 
 
+
+@media screen and (max-width: 900px) {
+  .name-selection-and-image-row {
+    flex-direction: column;
+    align-items: stretch; /* 横幅を揃える */
+  }
+
+  .dash-dropdown-container,
+  .dash-dropdown-container2,
+  .image-display-container {
+    width: 100%;
+    flex: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .half-width {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+}
+
