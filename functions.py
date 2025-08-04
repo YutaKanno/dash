@@ -85,7 +85,9 @@ def mov_plot(data, sp_or_trj, color_map):
             x=0,
             xanchor='left',
             yanchor='top'
-        )
+        ),
+        title_x=0.5,
+        margin=dict(l=0,r=0)
     )
     return scatter_fig
 
@@ -129,7 +131,8 @@ def zone_plot(df, plot_type):
     fig.update_layout(
         xaxis=dict(visible=False, range=[-80, 80]),
         yaxis=dict(visible=False, range=[0, 170]),
-        height=650
+        title_x=0.5,
+        margin=dict(l=0,r=0)
     )
     return fig
 
@@ -143,14 +146,15 @@ def violin_plot(data, label, color_map):
         title=label
     )
     violin_fig.update_layout(
-        height=550,
         legend=dict(
             orientation="h",
             y=-0.2,
             x=0,
             xanchor='left',
             yanchor='top'
-        )
+        ),
+        title_x=0.5,
+        margin=dict(l=0,r=0)
     )
     return violin_fig
 
@@ -172,7 +176,9 @@ def line_plot(df, y_label, color_map):
             x=0,
             xanchor='left',
             yanchor='top'
-        )
+        ),
+        title_x=0.5,
+        margin=dict(l=0,r=0)
     )
     return fig
 
@@ -197,7 +203,9 @@ def release_plot(df, x_axis, y_axis, color_map, x_s, x_e):
             x=0,
             xanchor='left',
             yanchor='top'
-        )
+        ),
+        title_x=0.5,
+        margin=dict(l=0,r=0)
     )
     return fig
 
@@ -254,7 +262,9 @@ def release_angle(df, color_map):
         xaxis=dict(scaleanchor='y', scaleratio=1, range=[0, 1.2], title=''), # Cos/Sinであることを明示
         yaxis=dict(range=[-0.2, 0.2], title=''),
         showlegend=True, # 凡例全体を表示
-        title='Release Angle'
+        title='Release Angle',
+        title_x=0.5,
+        margin=dict(l=0,r=0)
     )
     return fig
 
